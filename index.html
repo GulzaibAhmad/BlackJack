@@ -84,21 +84,12 @@
         }
 
         function newCard() {
-
-            if (isAlive === true && hasBlackJack === false) {
-
-
-                messageEl.textContent = 'Drawing a new card from the deck!'
-
-                const card = getrandomcard()
-
-                sum += card
-
-                cards.push(card)
-
-                console.log(cards)
-
-                renderGame()
+            if (isAlive && !hasBlackJack) {
+                messageEl.textContent = 'Drawing a new card from the deck!';
+                const card = getrandomcard();
+                sum += card;
+                cards.push(card);
+                renderGame();
             }
         }
 
