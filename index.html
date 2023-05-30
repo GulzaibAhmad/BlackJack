@@ -16,6 +16,7 @@
     <p id="sum-el">Sum: </p>
     <button onclick="startGame()">Play Game</button>
     <button onclick="newCard()">New Card</button>
+    <button onclick="stand()">Stand</button>
     <button onclick="restart()">Restart Game</button>
     <!-- <p id="player-el"></p> -->
 
@@ -117,6 +118,43 @@
             messageEl.textContent = message;
             sumEl.textContent = "Sum: ";
             cardsEl.textContent = "Cards: ";
+        }
+
+        function stand() {
+            if (!isAlive || hasBlackJack) {
+                return;
+            }
+
+            if (isAlive && !hasBlackJack)
+                if (sum < 17) { messageEl.textContent = "You must reach 17 or higher first!"; } else {
+
+                    let dealerSum = getDealerSum();
+                    let result = determineWinner(dealerSum);
+
+                    messageEl.textContent = "Player stands. Dealer's sum: " + dealerSum + ". " + result;
+                    isAlive = true;
+                }
+        }
+
+        function getDealerSum() {
+            let dealerSum = 0;
+            while (dealerSum < 17) {
+                const card = getrandomcard();
+                dealerSum += card;
+                cards.push(card);
+            }
+            return dealerSum;
+        }
+
+
+        function determineWinner(dealerSum) {
+            if (sum > dealerSum || dealerSum > 21) {
+                return "Player wins!";
+            } else if (sum < dealerSum) {
+                return "Dealer wins!";
+            } else {
+                return "It's a tie!";
+            }
         }
 
     </script>
