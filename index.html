@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Blackjack</title>
+    <title>Document</title>
 </head>
 
 <body>
@@ -14,16 +14,17 @@
     <p id="message-el">Want to play a round?</p>
     <p id="cards-el">Cards:</p>
     <p id="sum-el">Sum: </p>
-    <button onclick="startGame()">START GAME</button>
+    <button onclick="startGame()">Play Game</button>
     <button onclick="newCard()">New Card</button>
-    <p id="player-el"></p>
+    <button onclick="restart()">Restart Game</button>
+    <!-- <p id="player-el"></p> -->
 
 
     <script>
-        let player = {
+        /* let player = {
             name: "Per",
             chips: 100
-        }
+        } */
         let cards = []
         let sum = 0
         let hasBlackJack = false
@@ -32,9 +33,9 @@
         const messageEl = document.getElementById('message-el')
         const sumEl = document.getElementById('sum-el')
         const cardsEl = document.getElementById('cards-el')
-        const playerEl = document.getElementById('player-el')
+        /* const playerEl = document.getElementById('player-el')
 
-        playerEl.textContent = player.name + ": $" + player.chips
+        playerEl.textContent = player.name + ": $" + player.chips */
 
         function getrandomcard() {
 
@@ -53,13 +54,15 @@
 
 
         function startGame() {
-            isAlive = true
-            let firstCard = getrandomcard()
-            let secondCard = getrandomcard()
-            cards = [firstCard, secondCard]
-            sum = firstCard + secondCard
-
-            renderGame()
+            if (hasBlackJack) {
+                return messageEl.textContent = 'Restart Game!';
+            }
+            isAlive = true;
+            let firstCard = getrandomcard();
+            let secondCard = getrandomcard();
+            cards = [firstCard, secondCard];
+            sum = firstCard + secondCard;
+            renderGame();
         }
 
         function renderGame() {
@@ -84,13 +87,36 @@
         }
 
         function newCard() {
-            if (isAlive && !hasBlackJack) {
-                messageEl.textContent = 'Drawing a new card from the deck!';
-                const card = getrandomcard();
-                sum += card;
-                cards.push(card);
-                renderGame();
+
+            if (isAlive === true && hasBlackJack === false) {
+
+
+                messageEl.textContent = 'Drawing a new card from the deck!'
+
+                const card = getrandomcard()
+
+                sum += card
+
+                cards.push(card)
+
+                console.log(cards)
+
+                renderGame()
             }
+            else {
+                messageEl.textContent = 'Restart Game!'
+            }
+        }
+
+        function restart() {
+            isAlive = false;
+            hasBlackJack = false;
+            cards = [];
+            sum = 0;
+            message = "Want to play a round?";
+            messageEl.textContent = message;
+            sumEl.textContent = "Sum: ";
+            cardsEl.textContent = "Cards: ";
         }
 
     </script>
